@@ -1,5 +1,5 @@
 const socket = io();
-
+let loggedIn = false;
 const namePicker = document.getElementById('name-picker');
 const messageWindow = document.getElementById('chat-window');
 
@@ -32,15 +32,17 @@ messageForm.addEventListener('submit', function(e) {
     messageList.appendChild(item);
     messageList.scrollTop = messageList.scrollHeight;
     messageInput.value = '';
-    
+    loggedIn = true;
   }
 });
 
 socket.on('chat message', function(msg, username) {
-  const item = document.createElement('li');
-  item.textContent = username + ': ' + msg;
-  messageList.appendChild(item);
-  audio.play();
+  if(loggedIn){
+    const item = document.createElement('li');
+    item.textContent = username + ': ' + msg;
+    messageList.appendChild(item);
+    audio.play();
+  }
   messageList.scrollTop = messageList.scrollHeight;
 });
 
