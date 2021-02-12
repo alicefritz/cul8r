@@ -58,14 +58,16 @@ socket.on('new user online', (username, onlineUsers) => {
 })
 
 socket.on('user disconnected', (username, onlineUsers) => {
-  const item = document.createElement('li');
-  item.textContent = username + ' has disconnected';
-  messageList.appendChild(item)
-  onlineList = document.getElementById('online-list')
-  onlineList.innerHTML = '';
-  for(let i=0; i < onlineUsers.length; i++){
-    const onlineUser = document.createElement('li');
-    onlineUser.textContent = onlineUsers[i];
-    onlineList.appendChild(onlineUser)
+  if(username){
+    const item = document.createElement('li');
+    item.textContent = username + ' has disconnected';
+    messageList.appendChild(item)
+    onlineList = document.getElementById('online-list')
+    onlineList.innerHTML = '';
+    for(let i=0; i < onlineUsers.length; i++){
+      const onlineUser = document.createElement('li');
+      onlineUser.textContent = onlineUsers[i];
+      onlineList.appendChild(onlineUser)
+    }
   }
 })
