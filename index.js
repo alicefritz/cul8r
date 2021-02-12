@@ -24,7 +24,7 @@ app.get('/scripts.js', function(req, res) {
 io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log(socket.username + " disconnected");
-    onlineUsers = onlineUsers.filter(e => e !== socket.username);
+    onlineUsers = onlineUsers.filter(e => e.id !== socket.id);
     io.emit('user disconnected', socket.username, onlineUsers)
   });
 
@@ -35,7 +35,8 @@ io.on('connection', (socket) => {
   socket.on('new user online', (username) => {
     console.log(username + ' connected');
     socket.username = username;
-    onlineUsers.push(username);
+    const obj = {"username": username, "id": socket.id}
+    onlineUsers.push(obj);
     io.emit('new user online', username, onlineUsers)
   })
 });

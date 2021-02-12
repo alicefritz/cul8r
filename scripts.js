@@ -52,7 +52,7 @@ socket.on('new user online', (username, onlineUsers) => {
   onlineList.innerHTML = '';
   for(let i=0; i < onlineUsers.length; i++){
     const onlineUser = document.createElement('li');
-    onlineUser.textContent = onlineUsers[i];
+    onlineUser.textContent = onlineUsers[i].username;
     onlineList.appendChild(onlineUser)
   }
 })
@@ -66,7 +66,7 @@ socket.on('user disconnected', (username, onlineUsers) => {
     onlineList.innerHTML = '';
     for(let i=0; i < onlineUsers.length; i++){
       const onlineUser = document.createElement('li');
-      onlineUser.textContent = onlineUsers[i];
+      onlineUser.textContent = onlineUsers[i].username;
       onlineList.appendChild(onlineUser)
     }
   }
