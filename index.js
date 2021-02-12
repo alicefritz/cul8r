@@ -2,6 +2,7 @@ const app = require('express')();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const port = process.env.PORT || 3000;
+var express = require('express');
 
 let onlineUsers = [];
 
@@ -20,6 +21,8 @@ app.get('/style.css', function(req, res) {
 app.get('/scripts.js', function(req, res) {
   res.sendFile(__dirname + "/" + "scripts.js");
 });
+
+app.use("/favicon", express.static('favicon')); 
 
 io.on('connection', (socket) => {
   socket.on('disconnect', () => {
