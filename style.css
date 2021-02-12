@@ -80,7 +80,6 @@ button{
 .online-list{
   width: 100%;
   height: 100%;
-  padding-left: 1rem;
   list-style-type: none;
   font-size: 2rem;
   white-space: nowrap;
@@ -94,7 +93,7 @@ button{
   color: green; /* Change the color */
   font-weight: bold; /* If you want it to be bold */
   display: inline-block; /* Needed to add space between the bullet and the text */
-  width: 1em; /* Also needed for space (tweak if needed) */
+  width: 0.5em; /* Also needed for space (tweak if needed) */
   margin-left: 0.5rem; /* Also needed for space (tweak if needed) */
   font-size: 2rem;
 }
