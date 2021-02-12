@@ -41,7 +41,7 @@ socket.on('chat message', function(msg, username) {
   item.textContent = username + ': ' + msg;
   messageList.appendChild(item);
   audio.play();
-  window.scrollTo(0, document.body.scrollHeight);
+  messageList.scrollTop = messageList.scrollHeight;
 });
 
 socket.on('new user online', (username, onlineUsers) => {
