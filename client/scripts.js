@@ -89,6 +89,7 @@ socket.on('nudge', (username) => {
     const item = document.createElement('li');
     item.textContent = username + ' sent a nudge';
     messageList.appendChild(item)
+    messageList.scrollTop = messageList.scrollHeight;
   setTimeout(() => {
     messageWindow.style.animationName = 'none';
   }, 1000);
