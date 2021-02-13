@@ -80,12 +80,15 @@ socket.on('user disconnected', (username, onlineUsers) => {
   }
 })
 
-socket.on('nudge', () => {
+socket.on('nudge', (username) => {
   if(audio.paused){
     audio.src = '/nudgeSound.wav';
     audio.load();
     audio.play();
     messageWindow.style.animationName = 'nudge';
+    const item = document.createElement('li');
+    item.textContent = username + ' sent a nudge';
+    messageList.appendChild(item)
   setTimeout(() => {
     messageWindow.style.animationName = 'none';
   }, 1000);
@@ -105,5 +108,5 @@ smileys.forEach(smiley => {
 })
 
 nudgeButton.addEventListener('click', () => {
-  socket.emit('nudge');
+  socket.emit('nudge', username);
 })

@@ -45,8 +45,8 @@ io.on('connection', (socket) => {
     io.emit('new user online', username, onlineUsers)
   })
 
-  socket.on('nudge', () => {
-    io.emit('nudge')
+  socket.on('nudge', (username) => {
+    io.emit('nudge', username)
   })
 });
 
