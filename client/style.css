@@ -26,6 +26,9 @@
   flex-direction: row;
   position: relative;
   outline: 2px solid black;
+  animation-name: none;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
 }
 
 .chat{
@@ -144,4 +147,18 @@ button{
   width: 0.5em; /* Also needed for space (tweak if needed) */
   margin-left: 0.5rem; /* Also needed for space (tweak if needed) */
   font-size: 2rem;
+}
+
+@keyframes nudge {
+  0% {transform: translate(-5%, -2%);}
+  10% {transform: translate(5%, 2%);}
+  20% {transform: translate(-5%, -2%);}
+  30% {transform: translate(5%, 2%);}
+  40% {transform: translate(-5%, -2%);}
+  50% {transform: translate(5%, 2%);}
+  60% {transform: translate(-5%, -2%);}
+  70% {transform: translate(5%, 2%);}
+  80% {transform: translate(-5%, -2%);}
+  90% {transform: translate(5%, 2%);}
+  100% {transform: translate(-5%, -2%);}
 }

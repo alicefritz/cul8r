@@ -12,6 +12,7 @@ const audio = document.getElementById('audio');
 const smileyToggle = document.getElementById('smiley-toggle');
 const smileyMenu = document.getElementById('smiley-menu');
 const smileys = document.querySelectorAll('.smiley');
+const nudgeButton = document.getElementById('nudge-button')
 
 let username = '';
 
@@ -44,6 +45,8 @@ socket.on('chat message', function(msg, username) {
     const item = document.createElement('li');
     item.textContent = username + ': ' + msg;
     messageList.appendChild(item);
+    audio.src = '/chatSound.wav';
+    audio.load();
     audio.play();
   }
   messageList.scrollTop = messageList.scrollHeight;
@@ -77,6 +80,16 @@ socket.on('user disconnected', (username, onlineUsers) => {
   }
 })
 
+socket.on('nudge', () => {
+  audio.src = '/nudgeSound.wav';
+  audio.load();
+  audio.play();
+  messageWindow.style.animationName = 'nudge';
+  setTimeout(() => {
+    messageWindow.style.animationName = 'none';
+  }, 1000);
+})
+
 smileyToggle.addEventListener('click', () => {
   console.log(smileyMenu.style.display)
   window.getComputedStyle(smileyMenu, null).getPropertyValue("display") === 'none' ? smileyMenu.style.display = 'flex' : smileyMenu.style.display = 'none'
@@ -87,4 +100,8 @@ smileys.forEach(smiley => {
     console.log(e.target.getAttribute('data-smiley'))
     messageInput.value += e.target.getAttribute('data-smiley')
   })
+})
+
+nudgeButton.addEventListener('click', () => {
+  socket.emit('nudge');
 })

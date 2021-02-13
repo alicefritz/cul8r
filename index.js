@@ -44,7 +44,12 @@ io.on('connection', (socket) => {
     onlineUsers.push(obj);
     io.emit('new user online', username, onlineUsers)
   })
+
+  socket.on('nudge', () => {
+    socket.broadcast.emit('nudge')
+  })
 });
+
 
 http.listen(port, () => {
   console.log('listening on *:3000');
