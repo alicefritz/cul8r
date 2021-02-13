@@ -6,7 +6,7 @@ var express = require('express');
 
 let onlineUsers = [];
 
-app.get('/', (req, res) => {
+/*app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
@@ -20,8 +20,10 @@ app.get('/style.css', function(req, res) {
 
 app.get('/scripts.js', function(req, res) {
   res.sendFile(__dirname + "/" + "scripts.js");
-});
+});*/
 
+app.use("/", express.static('client')); 
+//app.use("/favicon", express.static('favicon'));  
 app.use("/favicon", express.static('favicon')); 
 
 io.on('connection', (socket) => {

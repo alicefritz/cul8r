@@ -9,6 +9,9 @@ const messageInput = document.getElementById('message-input');
 const nameInput = document.getElementById('name-input');
 const messageList = document.getElementById('message-list')
 const audio = document.getElementById('audio');
+const smileyToggle = document.getElementById('smiley-toggle');
+const smileyMenu = document.getElementById('smiley-menu');
+const smileys = document.querySelectorAll('.smiley');
 
 let username = '';
 
@@ -72,4 +75,16 @@ socket.on('user disconnected', (username, onlineUsers) => {
       onlineList.appendChild(onlineUser)
     }
   }
+})
+
+smileyToggle.addEventListener('click', () => {
+  console.log(smileyMenu.style.display)
+  window.getComputedStyle(smileyMenu, null).getPropertyValue("display") === 'none' ? smileyMenu.style.display = 'flex' : smileyMenu.style.display = 'none'
+})
+
+smileys.forEach(smiley => {
+  smiley.addEventListener('click', (e) => {
+    console.log(e.target.getAttribute('data-smiley'))
+    messageInput.value += e.target.getAttribute('data-smiley')
+  })
 })
