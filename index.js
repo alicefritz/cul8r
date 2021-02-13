@@ -46,7 +46,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('nudge', () => {
-    socket.broadcast.emit('nudge')
+    io.emit('nudge')
   })
 });
 
