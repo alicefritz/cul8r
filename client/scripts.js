@@ -81,13 +81,15 @@ socket.on('user disconnected', (username, onlineUsers) => {
 })
 
 socket.on('nudge', () => {
-  audio.src = '/nudgeSound.wav';
-  audio.load();
-  audio.play();
-  messageWindow.style.animationName = 'nudge';
+  if(audio.paused){
+    audio.src = '/nudgeSound.wav';
+    audio.load();
+    audio.play();
+    messageWindow.style.animationName = 'nudge';
   setTimeout(() => {
     messageWindow.style.animationName = 'none';
   }, 1000);
+  }
 })
 
 smileyToggle.addEventListener('click', () => {
