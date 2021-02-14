@@ -38,6 +38,7 @@ messageForm.addEventListener('submit', function(e) {
     messageList.appendChild(item);
     scrollToBottom();
     messageInput.value = '';
+    reactivateInput();
   }
 });
 
@@ -101,14 +102,22 @@ smileyToggle.addEventListener('click', () => {
 
 smileys.forEach(smiley => {
   smiley.addEventListener('click', (e) => {
-    messageInput.value += e.target.getAttribute('data-smiley')
+    messageInput.value += e.target.getAttribute('data-smiley');
+    reactivateInput();
   })
 })
 
 nudgeButton.addEventListener('click', () => {
   socket.emit('nudge', username);
+  reactivateInput();
 })
 
 const scrollToBottom = () => {
   messageList.scrollTop = messageList.scrollHeight;
+}
+
+const reactivateInput = () => {
+  const inputLength = messageInput.value.length;
+  messageInput.focus();
+  messageInput.setSelectionRange(inputLength, inputLength)
 }
