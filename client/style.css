@@ -129,6 +129,10 @@ button{
   padding: 0.5rem;
 }
 
+.message-highlight{
+  background-color: lightcoral;
+}
+
 .online{
   width: 30%;
   height: 100%;

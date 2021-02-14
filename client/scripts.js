@@ -42,19 +42,22 @@ messageForm.addEventListener('submit', function(e) {
   }
 });
 
-socket.on('chat message', function(msg, username) {
+socket.on('chat message', function(msg, sender) {
   if(loggedIn){
     const item = document.createElement('li');
-    item.textContent = username + ': ' + msg;
+    item.textContent = sender + ': ' + msg;
+    if(msg.includes('@'+username)){
+      item.classList.add('message-highlight')
+    }
     messageList.appendChild(item);
     scrollToBottom();
     chatAudio.play();
   }
 });
 
-socket.on('new user online', (username, onlineUsers) => {
+socket.on('new user online', (user, onlineUsers) => {
   const item = document.createElement('li');
-  item.textContent = username + ' has connected';
+  item.textContent = user + ' has connected';
   messageList.appendChild(item);
   scrollToBottom();
   onlineList = document.getElementById('online-list')
@@ -66,10 +69,10 @@ socket.on('new user online', (username, onlineUsers) => {
   }
 })
 
-socket.on('user disconnected', (username, onlineUsers) => {
-  if(username){
+socket.on('user disconnected', (sender, onlineUsers) => {
+  if(sender){
     const item = document.createElement('li');
-    item.textContent = username + ' has disconnected';
+    item.textContent = sender + ' has disconnected';
     messageList.appendChild(item)
     scrollToBottom();
     onlineList = document.getElementById('online-list')
@@ -82,12 +85,12 @@ socket.on('user disconnected', (username, onlineUsers) => {
   }
 })
 
-socket.on('nudge', (username) => {
+socket.on('nudge', (sender) => {
   if(nudgeAudio.paused){
     nudgeAudio.play();
     messageWindow.style.animationName = 'nudge';
     const item = document.createElement('li');
-    item.textContent = username + ' sent a nudge';
+    item.textContent = sender + ' sent a nudge';
     messageList.appendChild(item)
     scrollToBottom();
   setTimeout(() => {
