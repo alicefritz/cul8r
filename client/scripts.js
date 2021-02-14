@@ -8,7 +8,8 @@ const nameForm = document.getElementById('name-form');
 const messageInput = document.getElementById('message-input');
 const nameInput = document.getElementById('name-input');
 const messageList = document.getElementById('message-list')
-const audio = document.getElementById('audio');
+const chatAudio = document.getElementById('chat-audio');
+const nudgeAudio = document.getElementById('nudge-audio');
 const smileyToggle = document.getElementById('smiley-toggle');
 const smileyMenu = document.getElementById('smiley-menu');
 const smileys = document.querySelectorAll('.smiley');
@@ -45,9 +46,7 @@ socket.on('chat message', function(msg, username) {
     const item = document.createElement('li');
     item.textContent = username + ': ' + msg;
     messageList.appendChild(item);
-    audio.src = '/chatSound.wav';
-    audio.load();
-    audio.play();
+    chatAudio.play();
   }
   messageList.scrollTop = messageList.scrollHeight;
 });
@@ -81,10 +80,8 @@ socket.on('user disconnected', (username, onlineUsers) => {
 })
 
 socket.on('nudge', (username) => {
-  if(audio.paused){
-    audio.src = '/nudgeSound.wav';
-    audio.load();
-    audio.play();
+  if(nudgeAudio.paused){
+    nudgeAudio.play();
     messageWindow.style.animationName = 'nudge';
     const item = document.createElement('li');
     item.textContent = username + ' sent a nudge';
