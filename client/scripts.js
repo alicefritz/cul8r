@@ -36,7 +36,7 @@ messageForm.addEventListener('submit', function(e) {
     const item = document.createElement('li');
     item.textContent = username + ': ' + messageInput.value;
     messageList.appendChild(item);
-    messageList.scrollTop = messageList.scrollHeight;
+    scrollToBottom();
     messageInput.value = '';
   }
 });
@@ -46,15 +46,16 @@ socket.on('chat message', function(msg, username) {
     const item = document.createElement('li');
     item.textContent = username + ': ' + msg;
     messageList.appendChild(item);
+    scrollToBottom();
     chatAudio.play();
   }
-  messageList.scrollTop = messageList.scrollHeight;
 });
 
 socket.on('new user online', (username, onlineUsers) => {
   const item = document.createElement('li');
   item.textContent = username + ' has connected';
   messageList.appendChild(item);
+  scrollToBottom();
   onlineList = document.getElementById('online-list')
   onlineList.innerHTML = '';
   for(let i=0; i < onlineUsers.length; i++){
@@ -69,6 +70,7 @@ socket.on('user disconnected', (username, onlineUsers) => {
     const item = document.createElement('li');
     item.textContent = username + ' has disconnected';
     messageList.appendChild(item)
+    scrollToBottom();
     onlineList = document.getElementById('online-list')
     onlineList.innerHTML = '';
     for(let i=0; i < onlineUsers.length; i++){
@@ -86,7 +88,7 @@ socket.on('nudge', (username) => {
     const item = document.createElement('li');
     item.textContent = username + ' sent a nudge';
     messageList.appendChild(item)
-    messageList.scrollTop = messageList.scrollHeight;
+    scrollToBottom();
   setTimeout(() => {
     messageWindow.style.animationName = 'none';
   }, 1000);
@@ -106,3 +108,7 @@ smileys.forEach(smiley => {
 nudgeButton.addEventListener('click', () => {
   socket.emit('nudge', username);
 })
+
+const scrollToBottom = () => {
+  messageList.scrollTop = messageList.scrollHeight;
+}
