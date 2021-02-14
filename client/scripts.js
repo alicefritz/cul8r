@@ -25,6 +25,7 @@ nameForm.addEventListener('submit', function(e) {
     nameInput.value = '';
     namePicker.style.display = 'none';
     messageWindow.style.display = 'flex';
+    loggedIn = true;
   }
 });
 
@@ -37,7 +38,6 @@ messageForm.addEventListener('submit', function(e) {
     messageList.appendChild(item);
     messageList.scrollTop = messageList.scrollHeight;
     messageInput.value = '';
-    loggedIn = true;
   }
 });
 
