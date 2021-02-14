@@ -94,13 +94,11 @@ socket.on('nudge', (username) => {
 })
 
 smileyToggle.addEventListener('click', () => {
-  console.log(smileyMenu.style.display)
   window.getComputedStyle(smileyMenu, null).getPropertyValue("display") === 'none' ? smileyMenu.style.display = 'flex' : smileyMenu.style.display = 'none'
 })
 
 smileys.forEach(smiley => {
   smiley.addEventListener('click', (e) => {
-    console.log(e.target.getAttribute('data-smiley'))
     messageInput.value += e.target.getAttribute('data-smiley')
   })
 })
