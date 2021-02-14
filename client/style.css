@@ -93,15 +93,20 @@ button{
 .smiley-menu{
   display: none;
   justify-content: center;
+  align-items: center;
+  text-align: center;
   position: absolute;
-  top: -60%;
-  left: -10%;
+  bottom: 110%;
+  left: -2.5rem;
   background-color: #EFEFEF;
+  width: 7rem;
+  flex-wrap: wrap;
 }
 
 .smiley{
   height: 100%;
   width: 100%;
+  flex: 1 1 1rem;
 }
 
 .nudge{
