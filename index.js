@@ -6,24 +6,7 @@ var express = require('express');
 
 let onlineUsers = [];
 
-/*app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
-});
-
-app.get('/chatSound.wav', (req, res) => {
-  res.sendFile(__dirname + '/chatSound.wav');
-});
-
-app.get('/style.css', function(req, res) {
-  res.sendFile(__dirname + "/" + "style.css");
-});
-
-app.get('/scripts.js', function(req, res) {
-  res.sendFile(__dirname + "/" + "scripts.js");
-});*/
-
-app.use("/", express.static('client')); 
-//app.use("/favicon", express.static('favicon'));  
+app.use("/", express.static('client'));   
 app.use("/favicon", express.static('favicon')); 
 
 io.on('connection', (socket) => {

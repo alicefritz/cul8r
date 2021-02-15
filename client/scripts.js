@@ -92,7 +92,6 @@ socket.on('user disconnected', (sender, onlineUsers, color) => {
     const item = document.createElement('li');
     const span = document.createElement('span');
     span.innerHTML = sender;
-    console.log(color)
     span.style.color = color;
     item.appendChild(span);
     const itemText = document.createTextNode(' has disconnected');
