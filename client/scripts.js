@@ -83,6 +83,7 @@ socket.on('new user online', (user, onlineUsers, color) => {
   for(let i=0; i < onlineUsers.length; i++){
     const onlineUser = document.createElement('li');
     onlineUser.textContent = onlineUsers[i].username;
+    onlineUser.style.color = onlineUsers[i].color;
     onlineList.appendChild(onlineUser)
   }
 })
@@ -102,6 +103,7 @@ socket.on('user disconnected', (sender, onlineUsers, color) => {
     onlineList.innerHTML = '';
     for(let i=0; i < onlineUsers.length; i++){
       const onlineUser = document.createElement('li');
+      onlineUser.style.color = onlineUsers[i].color;
       onlineUser.textContent = onlineUsers[i].username;
       onlineList.appendChild(onlineUser)
     }
