@@ -16,25 +16,33 @@ const smileys = document.querySelectorAll('.smiley');
 const nudgeButton = document.getElementById('nudge-button')
 
 let username = '';
+let userColor = '';
 
 nameForm.addEventListener('submit', function(e) {
   e.preventDefault();
   if (nameInput.value) {
-    socket.emit('new user online', nameInput.value);
+    userColor = getRandomColor();
+    socket.emit('new user online', nameInput.value, userColor);
     username = nameInput.value;
     nameInput.value = '';
     namePicker.style.display = 'none';
     messageWindow.style.display = 'flex';
     loggedIn = true;
+    
   }
 });
 
 messageForm.addEventListener('submit', function(e) {
   e.preventDefault();
   if (messageInput.value) {
-    socket.emit('chat message', messageInput.value, username);
+    socket.emit('chat message', messageInput.value, username, userColor);
     const item = document.createElement('li');
-    item.textContent = username + ': ' + messageInput.value;
+    const span = document.createElement('span');
+    span.innerHTML = username + ': ';
+    span.style.color = userColor;
+    item.appendChild(span);
+    const itemText = document.createTextNode(messageInput.value);
+    item.appendChild(itemText)
     messageList.appendChild(item);
     scrollToBottom();
     messageInput.value = '';
@@ -42,10 +50,15 @@ messageForm.addEventListener('submit', function(e) {
   }
 });
 
-socket.on('chat message', function(msg, sender) {
+socket.on('chat message', function(msg, sender, color) {
   if(loggedIn){
     const item = document.createElement('li');
-    item.textContent = sender + ': ' + msg;
+    const span = document.createElement('span');
+    span.innerHTML = sender + ': ';
+    span.style.color = color;
+    item.appendChild(span);
+    const itemText = document.createTextNode(msg);
+    item.appendChild(itemText)
     if(msg.includes('@'+username)){
       item.classList.add('message-highlight')
     }
@@ -55,9 +68,14 @@ socket.on('chat message', function(msg, sender) {
   }
 });
 
-socket.on('new user online', (user, onlineUsers) => {
+socket.on('new user online', (user, onlineUsers, color) => {
   const item = document.createElement('li');
-  item.textContent = user + ' has connected';
+  const span = document.createElement('span');
+  span.innerHTML = user;
+  span.style.color = color;
+  item.appendChild(span);
+  const itemText = document.createTextNode(' has connected');
+  item.appendChild(itemText)
   messageList.appendChild(item);
   scrollToBottom();
   onlineList = document.getElementById('online-list')
@@ -69,10 +87,16 @@ socket.on('new user online', (user, onlineUsers) => {
   }
 })
 
-socket.on('user disconnected', (sender, onlineUsers) => {
+socket.on('user disconnected', (sender, onlineUsers, color) => {
   if(sender){
     const item = document.createElement('li');
-    item.textContent = sender + ' has disconnected';
+    const span = document.createElement('span');
+    span.innerHTML = sender;
+    console.log(color)
+    span.style.color = color;
+    item.appendChild(span);
+    const itemText = document.createTextNode(' has disconnected');
+    item.appendChild(itemText)
     messageList.appendChild(item)
     scrollToBottom();
     onlineList = document.getElementById('online-list')
@@ -85,12 +109,17 @@ socket.on('user disconnected', (sender, onlineUsers) => {
   }
 })
 
-socket.on('nudge', (sender) => {
+socket.on('nudge', (sender, color) => {
   if(nudgeAudio.paused){
     nudgeAudio.play();
     messageWindow.style.animationName = 'nudge';
     const item = document.createElement('li');
-    item.textContent = sender + ' sent a nudge';
+    const span = document.createElement('span');
+    span.innerHTML = sender;
+    span.style.color = color;
+    item.appendChild(span);
+    const itemText = document.createTextNode(' sent a nudge');
+    item.appendChild(itemText)
     messageList.appendChild(item)
     scrollToBottom();
   setTimeout(() => {
@@ -111,7 +140,7 @@ smileys.forEach(smiley => {
 })
 
 nudgeButton.addEventListener('click', () => {
-  socket.emit('nudge', username);
+  socket.emit('nudge', username, userColor);
   reactivateInput();
 })
 
@@ -123,4 +152,8 @@ const reactivateInput = () => {
   const inputLength = messageInput.value.length;
   messageInput.focus();
   messageInput.setSelectionRange(inputLength, inputLength)
+}
+
+const getRandomColor = () => {
+  return('#' + (Math.random().toString(16) + "000000").substring(2,8))
 }
