@@ -19,6 +19,21 @@ const themeChoices = document.querySelectorAll('.background-choice');
 let username = '';
 let userColor = '';
 
+
+
+const setBackgroundColor = () => {
+  const savedColor = localStorage.getItem('background-color');
+  if(savedColor){
+    const background = document.getElementById('main-container');
+    const activeTheme = document.getElementsByClassName('active-theme');
+    const newActiveTheme = document.querySelectorAll('[data-color="'+savedColor+'"]');
+    console.log(newActiveTheme);
+    activeTheme[0].classList.remove('active-theme');
+    background.style.backgroundColor = savedColor;
+    newActiveTheme[0].classList.add('active-theme')
+  }
+}
+
 nameForm.addEventListener('submit', function(e) {
   e.preventDefault();
   if (nameInput.value) {
@@ -149,6 +164,7 @@ themeChoices.forEach(choice => {
     activeTheme[0].classList.remove('active-theme')
     e.target.classList.add('active-theme')
     background.style.backgroundColor = color;
+    localStorage.setItem('background-color', color);
   })
 })
 
@@ -170,3 +186,5 @@ const reactivateInput = () => {
 const getRandomColor = () => {
   return('#' + (Math.random().toString(16) + "000000").substring(2,8))
 }
+
+window.addEventListener("load", setBackgroundColor);
