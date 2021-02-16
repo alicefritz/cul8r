@@ -16,7 +16,15 @@
 <body>
   <audio id="chat-audio" src="/chatSound.wav"></audio>
   <audio id="nudge-audio" src="/nudgeSound.wav"></audio>
-  <div class="container">
+  <div class="container" id="main-container">
+    <div class="background-picker">
+      <div class="background-choice active-theme" style="background-color: #ffffff;" data-color="#ffffff"></div>
+      <div class="background-choice" style="background-color: #84ffff;" data-color="#84ffff"></div>
+      <div class="background-choice" style="background-color: #b388ff;" data-color="#b388ff"></div>
+      <div class="background-choice" style="background-color: #ccff90;" data-color="#ccff90"></div>
+      <div class="background-choice" style="background-color: #ffea00;" data-color="#ffea00"></div>
+      <div class="background-choice" style="background-color: #f8bbd0;" data-color="#f8bbd0"></div>
+    </div>
     <div id="name-picker">
       <form id="name-form" action="">
         <input id="name-input" autocomplete="off" placeholder="username"/><button>Ok!</button>

@@ -13,7 +13,8 @@ const nudgeAudio = document.getElementById('nudge-audio');
 const smileyToggle = document.getElementById('smiley-toggle');
 const smileyMenu = document.getElementById('smiley-menu');
 const smileys = document.querySelectorAll('.smiley');
-const nudgeButton = document.getElementById('nudge-button')
+const nudgeButton = document.getElementById('nudge-button');
+const themeChoices = document.querySelectorAll('.background-choice');
 
 let username = '';
 let userColor = '';
@@ -137,6 +138,17 @@ smileys.forEach(smiley => {
   smiley.addEventListener('click', (e) => {
     messageInput.value += e.target.getAttribute('data-smiley');
     reactivateInput();
+  })
+})
+
+themeChoices.forEach(choice => {
+  choice.addEventListener('click', (e) => {
+    const background = document.getElementById('main-container');
+    const color = e.target.getAttribute('data-color');
+    const activeTheme = document.getElementsByClassName('active-theme');
+    activeTheme[0].classList.remove('active-theme')
+    e.target.classList.add('active-theme')
+    background.style.backgroundColor = color;
   })
 })
 

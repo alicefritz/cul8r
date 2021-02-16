@@ -13,6 +13,29 @@
   align-items: center;
 }
 
+.background-picker{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 25%;
+  height: 3rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.background-choice{
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  margin: 0.5rem;
+  border: 2px solid black;
+  cursor: pointer;
+}
+
+.active-theme{
+  border: 2px dotted black;
+}
+
 #name-picker{
   width: 15rem;
 }
@@ -136,6 +159,7 @@ button{
 .online{
   width: 30%;
   height: 100%;
+  background-color: white;
 }
 
 .online-list{
@@ -203,5 +227,9 @@ button{
 
   #message-form{
     border: 2px solid grey;
+  }
+
+  .background-picker{
+    display: none;
   }
 }
