@@ -40,7 +40,18 @@
   width: 15rem;
 }
 
+#name-form{
+  flex-direction: column;
+}
 
+#name-form input{
+  height: 2rem;
+  padding: 0 0.2rem;
+}
+
+.name-form-submit{
+  margin-top: 1rem;
+}
 
 #chat-window{
   width: 45rem;
