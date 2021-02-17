@@ -27,7 +27,6 @@ const setBackgroundColor = () => {
     const background = document.getElementById('main-container');
     const activeTheme = document.getElementsByClassName('active-theme');
     const newActiveTheme = document.querySelectorAll('[data-color="'+savedColor+'"]');
-    console.log(newActiveTheme);
     activeTheme[0].classList.remove('active-theme');
     background.style.backgroundColor = savedColor;
     newActiveTheme[0].classList.add('active-theme')
