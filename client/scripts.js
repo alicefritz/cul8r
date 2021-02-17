@@ -58,6 +58,7 @@ messageForm.addEventListener('submit', function(e) {
     span.style.color = userColor;
     item.appendChild(span);
     const itemText = document.createTextNode(messageInput.value);
+    item.setAttribute('title', getCurrentTime());
     item.appendChild(itemText)
     messageList.appendChild(item);
     scrollToBottom();
@@ -74,6 +75,7 @@ socket.on('chat message', function(msg, sender, color) {
     span.style.color = color;
     item.appendChild(span);
     const itemText = document.createTextNode(msg);
+    item.setAttribute('title', getCurrentTime());
     item.appendChild(itemText)
     if(msg.includes('@'+username)){
       item.classList.add('message-highlight')
@@ -91,6 +93,7 @@ socket.on('new user online', (user, onlineUsers, color) => {
   span.style.color = color;
   item.appendChild(span);
   const itemText = document.createTextNode(' has connected');
+  item.setAttribute('title', getCurrentTime());
   item.appendChild(itemText)
   messageList.appendChild(item);
   scrollToBottom();
@@ -112,6 +115,7 @@ socket.on('user disconnected', (sender, onlineUsers, color) => {
     span.style.color = color;
     item.appendChild(span);
     const itemText = document.createTextNode(' has disconnected');
+    item.setAttribute('title', getCurrentTime());
     item.appendChild(itemText)
     messageList.appendChild(item)
     scrollToBottom();
@@ -136,6 +140,7 @@ socket.on('nudge', (sender, color) => {
     span.style.color = color;
     item.appendChild(span);
     const itemText = document.createTextNode(' sent a nudge');
+    item.setAttribute('title', getCurrentTime());
     item.appendChild(itemText)
     messageList.appendChild(item)
     scrollToBottom();
@@ -185,6 +190,12 @@ const reactivateInput = () => {
 
 const getRandomColor = () => {
   return('#' + (Math.random().toString(16) + "000000").substring(2,8))
+}
+
+const getCurrentTime = () => {
+  const currentDate = new Date(); 
+  const currentTime = currentDate.getHours() + ":" + currentDate.getMinutes();
+  return  currentTime;
 }
 
 window.addEventListener("load", setBackgroundColor);
