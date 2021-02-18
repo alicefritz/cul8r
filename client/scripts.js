@@ -47,15 +47,6 @@ messageForm.addEventListener('submit', function(e) {
   e.preventDefault();
   if (messageInput.value) {
     socket.emit('chat message', messageInput.value);
-    /*const item = document.createElement('li');
-    const span = document.createElement('span');
-    span.innerHTML = username + ': ';
-    span.style.color = userColor;
-    item.appendChild(span);
-    const itemText = document.createTextNode(messageInput.value);
-    item.setAttribute('title', getCurrentTime());
-    item.appendChild(itemText)
-    messageList.appendChild(item);*/
     scrollToBottom();
     messageInput.value = '';
     reactivateInput();
@@ -77,7 +68,6 @@ socket.on('chat message', function(msg, sender, color) {
     }
     messageList.appendChild(item);
     scrollToBottom();
-    console.log(sender, username)
     sender != username && chatAudio.play();
   }
 });
