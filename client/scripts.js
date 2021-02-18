@@ -17,9 +17,6 @@ const nudgeButton = document.getElementById('nudge-button');
 const themeChoices = document.querySelectorAll('.background-choice');
 
 let username = '';
-let userColor = '';
-
-
 
 const setBackgroundColor = () => {
   const savedColor = localStorage.getItem('background-color');
@@ -36,8 +33,7 @@ const setBackgroundColor = () => {
 nameForm.addEventListener('submit', function(e) {
   e.preventDefault();
   if (nameInput.value) {
-    userColor = getRandomColor();
-    socket.emit('new user online', nameInput.value, userColor);
+    socket.emit('new user online', nameInput.value);
     username = nameInput.value;
     nameInput.value = '';
     namePicker.style.display = 'none';
@@ -50,8 +46,8 @@ nameForm.addEventListener('submit', function(e) {
 messageForm.addEventListener('submit', function(e) {
   e.preventDefault();
   if (messageInput.value) {
-    socket.emit('chat message', messageInput.value, username, userColor);
-    const item = document.createElement('li');
+    socket.emit('chat message', messageInput.value);
+    /*const item = document.createElement('li');
     const span = document.createElement('span');
     span.innerHTML = username + ': ';
     span.style.color = userColor;
@@ -59,7 +55,7 @@ messageForm.addEventListener('submit', function(e) {
     const itemText = document.createTextNode(messageInput.value);
     item.setAttribute('title', getCurrentTime());
     item.appendChild(itemText)
-    messageList.appendChild(item);
+    messageList.appendChild(item);*/
     scrollToBottom();
     messageInput.value = '';
     reactivateInput();
@@ -81,7 +77,8 @@ socket.on('chat message', function(msg, sender, color) {
     }
     messageList.appendChild(item);
     scrollToBottom();
-    chatAudio.play();
+    console.log(sender, username)
+    sender != username && chatAudio.play();
   }
 });
 
@@ -173,7 +170,7 @@ themeChoices.forEach(choice => {
 })
 
 nudgeButton.addEventListener('click', () => {
-  socket.emit('nudge', username, userColor);
+  socket.emit('nudge');
   reactivateInput();
 })
 
@@ -187,9 +184,7 @@ const reactivateInput = () => {
   messageInput.setSelectionRange(inputLength, inputLength)
 }
 
-const getRandomColor = () => {
-  return('#' + (Math.random().toString(16) + "000000").substring(2,8))
-}
+
 
 const getCurrentTime = () => {
   const currentDate = new Date(); 

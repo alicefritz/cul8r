@@ -12,29 +12,31 @@ app.use("/favicon", express.static('favicon'));
 io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log(socket.username + " disconnected");
-    const disconnectingUser = onlineUsers.filter(e => e.id === socket.id)
-    const disconnectingUserColor = disconnectingUser[0] && disconnectingUser[0].color;
     onlineUsers = onlineUsers.filter(e => e.id !== socket.id);
-    io.emit('user disconnected', socket.username, onlineUsers, disconnectingUserColor)
+    io.emit('user disconnected', socket.username, onlineUsers, socket.color)
   });
 
-  socket.on('chat message', (msg, username, color) => {
-    socket.broadcast.emit('chat message', msg, username, color);
+  socket.on('chat message', (msg) => {
+    io.emit('chat message', msg, socket.username, socket.color);
   });
 
-  socket.on('new user online', (username, color) => {
+  socket.on('new user online', (username) => {
     console.log(username + ' connected');
     socket.username = username;
-    const obj = {"username": username, "id": socket.id, "color": color}
+    socket.color = getRandomColor();
+    const obj = {"username": socket.username, "id": socket.id, "color": socket.color}
     onlineUsers.push(obj);
-    io.emit('new user online', username, onlineUsers, color)
+    io.emit('new user online', socket.username, onlineUsers, socket.color)
   })
 
-  socket.on('nudge', (username, color) => {
-    io.emit('nudge', username, color)
+  socket.on('nudge', () => {
+    io.emit('nudge', socket.username, socket.color)
   })
 });
 
+const getRandomColor = () => {
+  return('#' + (Math.random().toString(16) + "000000").substring(2,8))
+}
 
 http.listen(port, () => {
   console.log('listening on *:3000');
