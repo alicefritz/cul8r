@@ -66,10 +66,10 @@ socket.on('chat message', function(msg, sender, color) {
   if(loggedIn){
     const item = document.createElement('li');
     const span = document.createElement('span');
-    span.innerHTML = sender + ': ';
+    span.innerHTML = sender;
     span.style.color = color;
     item.appendChild(span);
-    const itemText = document.createTextNode(msg);
+    const itemText = document.createTextNode(': '+msg);
     item.setAttribute('title', getCurrentTime());
     item.appendChild(itemText)
     if(msg.includes('@'+username)){
