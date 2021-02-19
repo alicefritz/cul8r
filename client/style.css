@@ -163,6 +163,10 @@ button{
   padding: 0.5rem;
 }
 
+#message-input{
+  padding: 0 0.2rem;
+}
+
 .message-highlight{
   background-color: lightcoral;
 }
