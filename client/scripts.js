@@ -34,6 +34,7 @@ nameForm.addEventListener('submit', function(e) {
   e.preventDefault();
   if (nameInput.value) {
     socket.emit('request name', nameInput.value);
+    username = nameInput.value;
   }
 });
 
@@ -71,7 +72,6 @@ socket.on('chat message', function(msg, sender, color) {
 });
 
 socket.on('new user online', (user, onlineUsers, color) => {
-  username = nameInput.value;
   nameInput.value = '';
   namePicker.style.display = 'none';
   messageWindow.style.display = 'flex';
