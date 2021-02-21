@@ -36,6 +36,17 @@
   border: 2px dotted black;
 }
 
+#audio-toggle{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5rem;
+  height: auto;
+  margin: 1rem;
+  object-fit: cover;
+}
+
+
 #name-picker{
   width: 15rem;
 }
@@ -247,6 +258,10 @@ button{
   }
 
   .background-picker{
+    display: none;
+  }
+
+  #audio-toggle{
     display: none;
   }
 }

@@ -15,6 +15,7 @@ const smileyMenu = document.getElementById('smiley-menu');
 const smileys = document.querySelectorAll('.smiley');
 const nudgeButton = document.getElementById('nudge-button');
 const themeChoices = document.querySelectorAll('.background-choice');
+const audioToggle = document.getElementById('audio-toggle')
 
 let username = '';
 
@@ -189,4 +190,8 @@ const getCurrentTime = () => {
   return  currentTime;
 }
 
+audioToggle.addEventListener('click', () => {
+  audioToggle.getAttribute('src') === './volume-on.png' ? audioToggle.setAttribute('src', './volume-off.png') : audioToggle.setAttribute('src', './volume-on.png');
+  chatAudio.volume === 0 ? chatAudio.volume = 1 : chatAudio.volume = 0;
+})
 window.addEventListener("load", setBackgroundColor);
