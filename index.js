@@ -20,13 +20,21 @@ io.on('connection', (socket) => {
     io.emit('chat message', msg, socket.username, socket.color);
   });
 
+  socket.on('request name', (requestedUsername) => {
+    if (onlineUsers.filter(e => e.username === requestedUsername).length > 0) {
+      socket.emit('username taken');
+    }else{
+      console.log(requestedUsername + ' connected');
+      socket.username = requestedUsername;
+      socket.color = getRandomColor();
+      const obj = {"username": socket.username, "id": socket.id, "color": socket.color}
+      onlineUsers.push(obj);
+      io.emit('new user online', socket.username, onlineUsers, socket.color)
+    }
+  })
+
   socket.on('new user online', (username) => {
-    console.log(username + ' connected');
-    socket.username = username;
-    socket.color = getRandomColor();
-    const obj = {"username": socket.username, "id": socket.id, "color": socket.color}
-    onlineUsers.push(obj);
-    io.emit('new user online', socket.username, onlineUsers, socket.color)
+    
   })
 
   socket.on('nudge', () => {

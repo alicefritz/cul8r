@@ -33,13 +33,7 @@ const setBackgroundColor = () => {
 nameForm.addEventListener('submit', function(e) {
   e.preventDefault();
   if (nameInput.value) {
-    socket.emit('new user online', nameInput.value);
-    username = nameInput.value;
-    nameInput.value = '';
-    namePicker.style.display = 'none';
-    messageWindow.style.display = 'flex';
-    loggedIn = true;
-    
+    socket.emit('request name', nameInput.value);
   }
 });
 
@@ -52,6 +46,10 @@ messageForm.addEventListener('submit', function(e) {
     reactivateInput();
   }
 });
+
+socket.on('username taken', () => {
+  setNameError('username already taken :(')
+})
 
 socket.on('chat message', function(msg, sender, color) {
   if(loggedIn){
@@ -73,6 +71,11 @@ socket.on('chat message', function(msg, sender, color) {
 });
 
 socket.on('new user online', (user, onlineUsers, color) => {
+  username = nameInput.value;
+  nameInput.value = '';
+  namePicker.style.display = 'none';
+  messageWindow.style.display = 'flex';
+  loggedIn = true;
   const item = document.createElement('li');
   const span = document.createElement('span');
   span.innerHTML = user;
@@ -174,7 +177,10 @@ const reactivateInput = () => {
   messageInput.setSelectionRange(inputLength, inputLength)
 }
 
-
+const setNameError = (error) => {
+  const nameError = document.getElementById('name-error');
+  nameError.textContent = error;
+}
 
 const getCurrentTime = () => {
   const currentDate = new Date(); 
