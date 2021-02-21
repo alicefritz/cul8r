@@ -63,7 +63,7 @@ socket.on('chat message', function(msg, sender, color) {
     const itemText = document.createTextNode(': '+msg);
     item.setAttribute('title', getCurrentTime());
     item.appendChild(itemText)
-    if(msg.includes('@'+username)){
+    if(msg.toLowerCase().includes('@'+username.toLowerCase())){
       item.classList.add('message-highlight')
     }
     messageList.appendChild(item);
