@@ -94,6 +94,7 @@ socket.on('new user online', (user, onlineUsers, color) => {
     onlineUser.style.color = onlineUsers[i].color;
     onlineList.appendChild(onlineUser)
   }
+  reactivateInput();
 })
 
 socket.on('user disconnected', (sender, onlineUsers, color) => {
