@@ -17,6 +17,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('chat message', (msg) => {
+    msg = replaceWithSmileys(msg);
     io.emit('chat message', msg, socket.username, socket.color);
   });
 
@@ -41,6 +42,19 @@ io.on('connection', (socket) => {
     io.emit('nudge', socket.username, socket.color)
   })
 });
+
+const replaceWithSmileys = (message) => {
+  message = message
+  .replace(/\(L\)/g, '❤️')
+  .replace(/\(K\)/g, '💔')
+  .replace(/\(8/g, '😎')
+  .replace(/:D/g, '😃')
+  .replace(/\(croc\)/g, '🐊')
+  .replace(/\(frog\)/g, '🐸')
+  .replace(/\(dino\)/g, '🦕')
+  
+  return message;
+}
 
 const getRandomColor = () => {
   return('#' + (Math.random().toString(16) + "000000").substring(2,8))
