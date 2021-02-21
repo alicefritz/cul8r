@@ -83,6 +83,7 @@
   left: 0;
   background-color: rgb(109, 219, 255);
   outline: 2px solid black;
+  overflow: hidden;
 }
 
 .messages{
