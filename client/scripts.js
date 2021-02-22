@@ -55,7 +55,8 @@ socket.on('username taken', () => {
 
 socket.on('users online', numberOnline => {
   const usersOnlineP = document.getElementById('users-online');
-  usersOnlineP.textContent = numberOnline + ' users online';
+  const text = numberOnline === 1 ? ' user online' : ' users online'
+  usersOnlineP.textContent = numberOnline + text;
 })
 
 socket.on('chat message', function(msg, sender, color) {
