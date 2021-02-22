@@ -10,6 +10,8 @@ app.use("/", express.static('client'));
 app.use("/favicon", express.static('favicon')); 
 
 io.on('connection', (socket) => {
+  io.emit('users online', onlineUsers.length);
+
   socket.on('disconnect', () => {
     console.log(socket.username + " disconnected");
     onlineUsers = onlineUsers.filter(e => e.id !== socket.id);

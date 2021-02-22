@@ -53,6 +53,11 @@ socket.on('username taken', () => {
   setNameError('username already taken :(')
 })
 
+socket.on('users online', numberOnline => {
+  const usersOnlineP = document.getElementById('users-online');
+  usersOnlineP.textContent = numberOnline + ' users online';
+})
+
 socket.on('chat message', function(msg, sender, color) {
   if(loggedIn){
     const item = document.createElement('li');
@@ -187,7 +192,7 @@ const setNameError = (error) => {
 const getCurrentTime = () => {
   const currentDate = new Date(); 
   const currentTime = currentDate.getHours() + ":" + currentDate.getMinutes();
-  return  currentTime;
+  return currentTime;
 }
 
 audioToggle.addEventListener('click', () => {
