@@ -13,6 +13,10 @@
   align-items: center;
 }
 
+#main-container{
+  transition: 250ms ease-in-out;
+}
+
 .background-picker{
   position: absolute;
   top: 0;
