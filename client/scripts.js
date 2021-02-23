@@ -78,10 +78,11 @@ socket.on('chat message', function(msg, sender, color) {
   }
 });
 
-socket.on("pm", (msg, sender) => {
+socket.on("pm", (msg, sender, color) => {
   const item = document.createElement('li');
   const span = document.createElement('span');
-  span.innerHTML = 'PM FROM '+sender;
+  span.innerHTML = 'PM from '+sender;
+  span.style.color = color;
   item.appendChild(span);
   const itemText = document.createTextNode(': '+msg);
   item.setAttribute('title', getCurrentTime());
@@ -89,6 +90,19 @@ socket.on("pm", (msg, sender) => {
   messageList.appendChild(item);
   scrollToBottom();
   sender != username && chatAudio.play();
+})
+
+socket.on('pmsent', (msg, receiver, color) => {
+  const item = document.createElement('li');
+  const span = document.createElement('span');
+  span.innerHTML = 'PM to '+receiver;
+  span.style.color = color;
+  item.appendChild(span);
+  const itemText = document.createTextNode(': '+msg);
+  item.setAttribute('title', getCurrentTime());
+  item.appendChild(itemText)
+  messageList.appendChild(item);
+  scrollToBottom();
 })
 
 socket.on('new user online', (user, onlineUsers, color) => {

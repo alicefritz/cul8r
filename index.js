@@ -53,11 +53,10 @@ io.on('connection', (socket) => {
       if(Object.values(onlineUsers[i]).includes(separated[1])){
         const userToPM = onlineUsers.filter(user => user.username === separated[1]);
         const userToPMID = userToPM[0].id;
-        console.log(splitMSG)
         splitMSG.shift();
         msg = splitMSG.join(' ')
-        console.log(msg)
-        io.to(userToPMID).emit("pm", msg, socket.username);
+        io.to(userToPMID).emit("pm", msg, socket.username, socket.color);
+        io.to(socket.id).emit("pmsent", msg, userToPM[0].username, userToPM[0].color);
         return true;
       }
     }
