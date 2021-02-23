@@ -20,7 +20,9 @@ io.on('connection', (socket) => {
 
   socket.on('chat message', (msg) => {
     msg = replaceWithSmileys(msg);
-    io.emit('chat message', msg, socket.username, socket.color);
+    if(!isPM(msg)){
+      io.emit('chat message', msg, socket.username, socket.color);
+    }
   });
 
   socket.on('request name', (requestedUsername) => {
@@ -43,6 +45,24 @@ io.on('connection', (socket) => {
   socket.on('nudge', () => {
     io.emit('nudge', socket.username, socket.color)
   })
+
+  const isPM = (msg) => {
+    const splitMSG = msg.split(' ')
+    const separated = splitMSG[0].replace(/\*/g, '* ').split(' ');
+    for(let i=0; i < onlineUsers.length; i++){
+      if(Object.values(onlineUsers[i]).includes(separated[1])){
+        const userToPM = onlineUsers.filter(user => user.username === separated[1]);
+        const userToPMID = userToPM[0].id;
+        console.log(splitMSG)
+        splitMSG.shift();
+        msg = splitMSG.join(' ')
+        console.log(msg)
+        io.to(userToPMID).emit("pm", msg, socket.username);
+        return true;
+      }
+    }
+    return false;
+  }
 });
 
 const replaceWithSmileys = (message) => {
@@ -61,6 +81,8 @@ const replaceWithSmileys = (message) => {
 const getRandomColor = () => {
   return('#' + (Math.random().toString(16) + "000000").substring(2,8))
 }
+
+
 
 http.listen(port, () => {
   console.log('listening on *:3000');

@@ -78,6 +78,19 @@ socket.on('chat message', function(msg, sender, color) {
   }
 });
 
+socket.on("pm", (msg, sender) => {
+  const item = document.createElement('li');
+  const span = document.createElement('span');
+  span.innerHTML = 'PM FROM '+sender;
+  item.appendChild(span);
+  const itemText = document.createTextNode(': '+msg);
+  item.setAttribute('title', getCurrentTime());
+  item.appendChild(itemText)
+  messageList.appendChild(item);
+  scrollToBottom();
+  sender != username && chatAudio.play();
+})
+
 socket.on('new user online', (user, onlineUsers, color) => {
   nameInput.value = '';
   namePicker.style.display = 'none';
