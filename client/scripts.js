@@ -74,7 +74,7 @@ socket.on('chat message', function(msg, sender, color) {
     }
     messageList.appendChild(item);
     scrollToBottom();
-    sender != username && chatAudio.play();
+    playMessageSound(sender);
   }
 });
 
@@ -89,7 +89,7 @@ socket.on("pm", (msg, sender, color) => {
   item.appendChild(itemText)
   messageList.appendChild(item);
   scrollToBottom();
-  sender != username && chatAudio.play();
+  playMessageSound(sender);
 })
 
 socket.on('pmsent', (msg, receiver, color) => {
@@ -227,4 +227,11 @@ audioToggle.addEventListener('click', () => {
   audioToggle.getAttribute('src') === './volume-on.png' ? audioToggle.setAttribute('src', './volume-off.png') : audioToggle.setAttribute('src', './volume-on.png');
   chatAudio.volume === 0 ? chatAudio.volume = 1 : chatAudio.volume = 0;
 })
+
+const playMessageSound = (sender) => {
+  if(!document.hasFocus()){
+    sender != username && chatAudio.play();
+  }
+}
+
 window.addEventListener("load", setBackgroundColor);
