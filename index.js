@@ -68,11 +68,24 @@ const replaceWithSmileys = (message) => {
   message = message
   .replace(/\(L\)/g, '❤️')
   .replace(/\(K\)/g, '💔')
-  .replace(/\(8/g, '😎')
+  .replace(/B\)/g, '😎')
   .replace(/:D/g, '😃')
+  .replace(/=D/g, '😁')
+  .replace(/lolz/g, '😂')
+  .replace(/ehehehe/g, '😅')
+  .replace(/=\)/g, '😊')
+  .replace(/;P/g, '🤪')
+  .replace(/::\)/g, '😌')
   .replace(/\(croc\)/g, '🐊')
   .replace(/\(frog\)/g, '🐸')
   .replace(/\(dino\)/g, '🦕')
+  .replace(/\(star\)/g, '⭐')
+  .replace(/\(vhand\)/g, '✌️')
+  .replace(/\(ohand\)/g, '👌')
+  .replace(/\(phonehand\)/g, '🤙')
+  .replace(/\(balloon\)/g, '🎈')
+  .replace(/\(aubergine\)/g, '🍆')
+  .replace(/\(peach\)/g, '🍑')
   
   return message;
 }
