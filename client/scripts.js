@@ -234,4 +234,15 @@ const playMessageSound = (sender) => {
   }
 }
 
+const validateName = () => {
+  const value = nameInput.value;
+  if(value.length > 15){
+    setNameError('Name too long. Pick a name of maximum 15 characters.')
+  }else{
+    setNameError('')
+  }
+}
+
+nameInput.addEventListener('keyup', validateName)
+
 window.addEventListener("load", setBackgroundColor);
