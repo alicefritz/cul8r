@@ -27,15 +27,21 @@ io.on('connection', (socket) => {
 
   socket.on('request name', (requestedUsername) => {
     if (onlineUsers.filter(e => e.username === requestedUsername).length > 0) {
-      socket.emit('username taken');
-    }else{
-      console.log(requestedUsername + ' connected');
-      socket.username = requestedUsername;
-      socket.color = getRandomColor();
-      const obj = {"username": socket.username, "id": socket.id, "color": socket.color}
-      onlineUsers.push(obj);
-      io.emit('new user online', socket.username, onlineUsers, socket.color)
+      socket.emit('username error', 'Username not available');
+      return;
     }
+    
+    if(requestedUsername.length > 15){
+      socket.emit('username error', 'Username too long (max 15 characters)')
+      return;
+    }
+    console.log(requestedUsername + ' connected');
+    socket.username = requestedUsername;
+    socket.color = getRandomColor();
+    const obj = {"username": socket.username, "id": socket.id, "color": socket.color}
+    onlineUsers.push(obj);
+    io.emit('new user online', socket.username, onlineUsers, socket.color)
+    
   })
 
   socket.on('new user online', (username) => {

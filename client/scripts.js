@@ -49,8 +49,8 @@ messageForm.addEventListener('submit', function(e) {
   }
 });
 
-socket.on('username taken', () => {
-  setNameError('username already taken :(')
+socket.on('username error', (error) => {
+  setNameError(error)
 })
 
 socket.on('users online', numberOnline => {
