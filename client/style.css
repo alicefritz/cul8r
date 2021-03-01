@@ -84,6 +84,11 @@
   padding: 0.5rem 0;
 }
 
+#color-checkbox{
+  width: 2rem;
+  margin-right: 0.4rem;
+}
+
 #color-picker{
   display: none;
 }
