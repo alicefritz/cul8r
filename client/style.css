@@ -78,6 +78,16 @@
   cursor: pointer;
 }
 
+.colorpicker-div{
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+#color-picker{
+  display: none;
+}
+
 #chat-window{
   width: 45rem;
   height: 25rem;
@@ -208,7 +218,7 @@ button{
   width: 100%;
   height: 100%;
   list-style-type: none;
-  font-size: 2rem;
+  font-size: 1rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -222,7 +232,8 @@ button{
   display: inline-block; /* Needed to add space between the bullet and the text */
   width: 0.5em; /* Also needed for space (tweak if needed) */
   margin-left: 0.5rem; /* Also needed for space (tweak if needed) */
-  font-size: 2rem;
+  font-size: 3rem;
+  transform: translateY(20%);
 }
 
 @keyframes nudge {

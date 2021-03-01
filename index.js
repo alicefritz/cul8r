@@ -25,7 +25,7 @@ io.on('connection', (socket) => {
     }
   });
 
-  socket.on('request name', (requestedUsername) => {
+  socket.on('request name', (requestedUsername, pickedColor) => {
     if (onlineUsers.filter(e => e.username === requestedUsername).length > 0) {
       socket.emit('username error', 'Username not available');
       return;
@@ -37,7 +37,7 @@ io.on('connection', (socket) => {
     }
     console.log(requestedUsername + ' connected');
     socket.username = requestedUsername;
-    socket.color = getRandomColor();
+    socket.color = pickedColor ? pickedColor : getRandomColor();
     const obj = {"username": socket.username, "id": socket.id, "color": socket.color}
     onlineUsers.push(obj);
     io.emit('new user online', socket.username, onlineUsers, socket.color)

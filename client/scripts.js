@@ -5,6 +5,7 @@ const messageWindow = document.getElementById('chat-window');
 
 const messageForm = document.getElementById('message-form');
 const nameForm = document.getElementById('name-form');
+const colorCheckbox = document.getElementById('color-checkbox')
 const messageInput = document.getElementById('message-input');
 const nameInput = document.getElementById('name-input');
 const messageList = document.getElementById('message-list')
@@ -33,8 +34,9 @@ const setBackgroundColor = () => {
 
 nameForm.addEventListener('submit', function(e) {
   e.preventDefault();
+  const pickedColor = colorCheckbox.checked ? document.getElementById('color-picker').value : undefined;
   if (nameInput.value) {
-    socket.emit('request name', nameInput.value);
+    socket.emit('request name', nameInput.value, pickedColor);
     username = nameInput.value;
   }
 });
@@ -244,5 +246,17 @@ const validateName = () => {
 }
 
 nameInput.addEventListener('keyup', validateName)
+
+const toggleColorPicker = () => {
+  const colorPicker = document.getElementById('color-picker')
+  const colorPickerDisplay = window.getComputedStyle(colorPicker, null).getPropertyValue("display");
+  if(colorPickerDisplay === 'none'){
+    colorPicker.style.display = 'block';
+  }else{
+    colorPicker.style.display = 'none';
+  }
+}
+
+colorCheckbox.addEventListener('click', toggleColorPicker)
 
 window.addEventListener("load", setBackgroundColor);
