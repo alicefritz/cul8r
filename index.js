@@ -41,7 +41,7 @@ io.on('connection', (socket) => {
       return;
     }
     console.log(requestedUsername + ' connected');
-    socket.username = requestedUsername;
+    socket.username = requestedUsername.trim();
     socket.color = pickedColor ? pickedColor : getRandomColor();
     const obj = {"username": socket.username, "id": socket.id, "color": socket.color}
     onlineUsers.push(obj);
