@@ -92,6 +92,7 @@ socket.on("pm", (msg, sender, color) => {
   item.setAttribute('title', getCurrentTime());
   item.appendChild(itemText)
   messageList.appendChild(item);
+  handleNotification();
   scrollToBottom();
   playMessageSound(sender);
 })
