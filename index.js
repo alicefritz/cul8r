@@ -35,6 +35,11 @@ io.on('connection', (socket) => {
       socket.emit('username error', 'Username too long (max 15 characters)')
       return;
     }
+
+    if(!requestedUsername.trim().length){
+      socket.emit('username error', "User name cannot contain only spaces")
+      return;
+    }
     console.log(requestedUsername + ' connected');
     socket.username = requestedUsername;
     socket.color = pickedColor ? pickedColor : getRandomColor();

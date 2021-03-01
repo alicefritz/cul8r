@@ -255,9 +255,13 @@ const validateName = () => {
   const value = nameInput.value;
   if(value.length > 15){
     setNameError('Name too long. Pick a name of maximum 15 characters.')
-  }else{
-    setNameError('')
+    return;
   }
+  if(!value.trim().length){
+    setNameError("That's not a valid name.")
+    return;
+  }
+  setNameError('')
 }
 
 nameInput.addEventListener('keyup', validateName)
