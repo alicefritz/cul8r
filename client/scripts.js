@@ -145,7 +145,7 @@ socket.on('new user online', (user, onlineUsers, color) => {
     onlineUser.style.color = onlineUsers[i].color;
     onlineList.appendChild(onlineUser)
   }
-  showNotification(user);
+  !document.hasFocus() && showNotification(user);
   reactivateInput();
 })
 
