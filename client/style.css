@@ -238,7 +238,7 @@ button{
   align-content: center;
 }
 
-.online-list li:nth-child(even){
+.online-list li:not(:first-child){
   border-top: 1px solid lightgray;
 }
 
