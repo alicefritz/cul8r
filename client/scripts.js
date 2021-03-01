@@ -18,6 +18,7 @@ const nudgeButton = document.getElementById('nudge-button');
 const themeChoices = document.querySelectorAll('.background-choice');
 const audioToggle = document.getElementById('audio-toggle')
 
+let notifications = 0;
 let username = '';
 
 const setBackgroundColor = () => {
@@ -75,6 +76,7 @@ socket.on('chat message', function(msg, sender, color) {
       item.classList.add('message-highlight')
     }
     messageList.appendChild(item);
+    handleNotification();
     scrollToBottom();
     playMessageSound(sender);
   }
@@ -235,6 +237,18 @@ const playMessageSound = (sender) => {
     sender != username && chatAudio.play();
   }
 }
+
+const handleNotification = () => {
+  if(!document.hasFocus()){
+    notifications++;
+    document.title = `(${notifications}) - CUL8R`;
+  }else{
+    notifications = 0;
+    document.title = 'CUL8R';
+  }
+}
+
+window.addEventListener('focus', handleNotification)
 
 const validateName = () => {
   const value = nameInput.value;
