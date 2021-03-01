@@ -251,7 +251,7 @@ const setNameError = (error) => {
 
 const getCurrentTime = () => {
   const currentDate = new Date(); 
-  const currentTime = currentDate.getHours() + ":" + currentDate.getMinutes();
+  const currentTime = currentDate.getHours().toString().padStart(2, "0") + ":" + currentDate.getMinutes().toString().padStart(2, "0");
   return currentTime;
 }
 
