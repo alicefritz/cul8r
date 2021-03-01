@@ -145,6 +145,7 @@ socket.on('new user online', (user, onlineUsers, color) => {
     onlineUser.style.color = onlineUsers[i].color;
     onlineList.appendChild(onlineUser)
   }
+  addEventListenersOnlineList();
   !document.hasFocus() && showNotification(user);
   reactivateInput();
 })
@@ -169,6 +170,7 @@ socket.on('user disconnected', (sender, onlineUsers, color) => {
       onlineUser.textContent = onlineUsers[i].username;
       onlineList.appendChild(onlineUser)
     }
+    addEventListenersOnlineList();
   }
 })
 
@@ -191,6 +193,18 @@ socket.on('nudge', (sender, color) => {
   }, 1000);
   }
 })
+
+const addEventListenersOnlineList = () => {
+  const onlineListItems = document.getElementById('online-list').children;
+  for (const item of onlineListItems) {
+    item.addEventListener('click', () => {
+      if(!messageInput.value){
+        messageInput.value += '*' + item.innerHTML + ' ';
+        reactivateInput();
+      }
+    })
+  }
+}
 
 smileyToggle.addEventListener('click', () => {
   window.getComputedStyle(smileyMenu, null).getPropertyValue("display") === 'none' ? smileyMenu.style.display = 'flex' : smileyMenu.style.display = 'none'
