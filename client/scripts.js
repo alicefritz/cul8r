@@ -21,6 +21,18 @@ const audioToggle = document.getElementById('audio-toggle')
 let notifications = 0;
 let username = '';
 
+// NOTIFICATIONS
+
+if(Notification.permission !== 'denied'){
+  Notification.requestPermission()
+}
+
+const showNotification = (user) => {
+  if(user != username){
+    const notification = new Notification(`${user} is now online on CUL8R!`);
+  }
+}
+
 const setBackgroundColor = () => {
   const savedColor = localStorage.getItem('background-color');
   if(savedColor){
@@ -133,6 +145,7 @@ socket.on('new user online', (user, onlineUsers, color) => {
     onlineUser.style.color = onlineUsers[i].color;
     onlineList.appendChild(onlineUser)
   }
+  showNotification(user);
   reactivateInput();
 })
 
