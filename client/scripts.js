@@ -295,12 +295,7 @@ nameInput.addEventListener('keyup', validateName)
 
 const toggleColorPicker = () => {
   const colorPicker = document.getElementById('color-picker')
-  const colorPickerDisplay = window.getComputedStyle(colorPicker, null).getPropertyValue("display");
-  if(colorPickerDisplay === 'none'){
-    colorPicker.style.display = 'block';
-  }else{
-    colorPicker.style.display = 'none';
-  }
+  colorPicker.classList.toggle('hidden')
 }
 
 colorCheckbox.addEventListener('click', toggleColorPicker)

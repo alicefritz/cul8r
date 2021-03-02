@@ -90,7 +90,13 @@
 }
 
 #color-picker{
-  display: none;
+  display: block;
+  transition: 250ms ease-in-out;
+}
+
+#color-picker.hidden{
+  height: 0;
+  opacity: 0;
 }
 
 #chat-window{
