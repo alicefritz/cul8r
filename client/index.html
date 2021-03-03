@@ -16,7 +16,11 @@
 <body>
   <audio id="chat-audio" src="/chatSound.wav" volume=1></audio>
   <audio id="nudge-audio" src="/nudgeSound.wav" volume=1></audio>
-  <img  id="audio-toggle" src="./volume-on.png" alt="">
+  <!--<img  id="audio-toggle" src="./volume-on.png" alt="">-->
+  <div class="settings">
+    <label for="volume-checkbox">Mute message audio</label>
+    <input type="checkbox" id="volume-checkbox">
+  </div>
   <div class="container" id="main-container">
     <div class="background-picker">
       <div class="background-choice active-theme" style="background-color: #ffffff;" data-color="#ffffff"></div>

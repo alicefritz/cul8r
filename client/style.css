@@ -40,14 +40,20 @@
   border: 2px dotted black;
 }
 
-#audio-toggle{
+.settings{
   position: absolute;
   top: 0;
   right: 0;
-  width: 5rem;
-  height: auto;
   margin: 1rem;
-  object-fit: cover;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.settings #volume-checkbox{
+  height: 2rem;
+  width: 2rem;
+  margin: 0.5rem;
 }
 
 #users-online{
