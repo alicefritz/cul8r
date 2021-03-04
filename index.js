@@ -7,7 +7,6 @@ var express = require('express');
 let onlineUsers = [];
 
 app.use("/", express.static('client'));   
-app.use("/favicon", express.static('favicon')); 
 
 io.on('connection', (socket) => {
   io.emit('users online', onlineUsers.length);
