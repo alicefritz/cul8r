@@ -14,7 +14,11 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log(socket.username + " disconnected");
     onlineUsers = onlineUsers.filter(e => e.id !== socket.id);
-    io.emit('user disconnected', socket.username, onlineUsers, socket.color)
+    const users = onlineUsers.map(a => ({...a})).map(user => {
+      delete user.id;
+      return user;
+    });
+    io.emit('user disconnected', socket.username, users, socket.color)
   });
 
   socket.on('chat message', (msg) => {
@@ -44,7 +48,11 @@ io.on('connection', (socket) => {
     socket.color = pickedColor ? pickedColor : getRandomColor();
     const obj = {"username": socket.username, "id": socket.id, "color": socket.color}
     onlineUsers.push(obj);
-    io.emit('new user online', socket.username, onlineUsers, socket.color)
+    const users = onlineUsers.map(a => ({...a})).map(user => {
+      delete user.id;
+      return user;
+    });
+    io.emit('new user online', socket.username, users, socket.color)
     
   })
 
